@@ -1,4 +1,6 @@
-﻿using LaunchAPI.ViewModels;
+﻿using AutoMapper;
+using LaunchAPI.Contracts.Service;
+using LaunchAPI.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LaunchAPI.Controllers
@@ -8,10 +10,15 @@ namespace LaunchAPI.Controllers
     public class DashboardController : Controller
     {
 
+        private IDashboardService _dashboardService;
+        private IMapper _mapper;
+
         [HttpGet(Name = "GetDashboardData")]
         public ActionResult<DashboardDataVM> GetDashboardData()
         {
-            return Ok(null);
+            var dashboardData = _dashboardService.GetDashboardData(1);
+            var mapped = _mapper.Map<DashboardDataVM>(dashboardData);
+            return Ok(mapped);
         }
 
     }
