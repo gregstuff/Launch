@@ -1,7 +1,7 @@
 ﻿
 namespace LaunchAPI.Contracts.DomainModels
 {
-    public interface IUser
+    public interface IAppUser
     {
         public int UserId { get; set; }
         public int ClientId { get; set; }

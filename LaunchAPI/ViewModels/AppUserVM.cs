@@ -1,6 +1,6 @@
 ﻿namespace LaunchAPI.ViewModels
 {
-    public class UserVM
+    public class AppUserVM
     {
         string Email { get; set; }
         string FirstName { get; set; }

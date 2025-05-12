@@ -7,13 +7,20 @@ WORKDIR /app
 EXPOSE 8080
 EXPOSE 8081
 
+ENV DOTNET_SYSTEM_NET_HTTP_USESOCKETSHTTPHANDLER=0
 
 # This stage is used to build the service project
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["LaunchAPI/LaunchAPI.csproj", "LaunchAPI/"]
-RUN dotnet restore "./LaunchAPI/LaunchAPI.csproj"
+
+RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates && \
+    update-ca-certificates
+
+COPY nuget.config /root/.nuget/NuGet/NuGet.Config
+
+COPY ["LaunchAPI.csproj", "LaunchAPI/"]
+RUN dotnet restore "./LaunchAPI/LaunchAPI.csproj" --verbosity detailed --configfile /root/.nuget/NuGet/NuGet.Config
 COPY . .
 WORKDIR "/src/LaunchAPI"
 RUN dotnet build "./LaunchAPI.csproj" -c $BUILD_CONFIGURATION -o /app/build

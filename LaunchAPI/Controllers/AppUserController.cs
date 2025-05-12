@@ -2,7 +2,7 @@
 
 namespace LaunchAPI.Controllers
 {
-    public class UserController : Controller
+    public class AppUserController : Controller
     {
         public IActionResult Index()
         {

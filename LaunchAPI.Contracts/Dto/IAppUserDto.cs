@@ -1,7 +1,7 @@
 ﻿
 namespace LaunchAPI.Contracts.Dto
 {
-    public interface IUserDto
+    public interface IAppUserDto
     {
         int UserId { get; set; }
         int ClientId { get; set; }
